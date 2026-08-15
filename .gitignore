@@ -8,6 +8,12 @@ out/
 # turbo
 .turbo/
 
+# test artifacts
+coverage/
+playwright-report/
+test-results/
+blob-report/
+
 # production
 build/
 dist/
