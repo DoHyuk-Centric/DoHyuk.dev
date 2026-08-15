@@ -1,0 +1,8 @@
+CHANGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR)
+
+if echo "$CHANGED_FILES" | grep -qvE '(\.md$|^docs/)'; then
+  echo "Code changes detected — running typecheck, unit tests, and e2e tests..."
+  pnpm turbo run typecheck test test:e2e
+else
+  echo "Only docs/markdown changed — skipping typecheck/test/e2e."
+fi
