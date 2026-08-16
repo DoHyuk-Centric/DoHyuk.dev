@@ -5,8 +5,10 @@
 on:
   push:
     branches: [develop, main]
+    paths-ignore: ["**/*.md", "docs/**", ".github/**", "deploy/**"] # 문서/워크플로우/배포 설정만 바뀌면 CI를 아예 트리거하지 않는다
   pull_request:
     branches: [develop, main]
+    paths-ignore: ["**/*.md", "docs/**", ".github/**", "deploy/**"]
 
 # 같은 브랜치에 연달아 push되면, 아직 안 끝난 이전 실행은 취소하고 최신 것만 돌린다
 concurrency:
