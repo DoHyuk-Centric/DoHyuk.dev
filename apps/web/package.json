@@ -10,6 +10,12 @@
     "test": "vitest run",
     "test:e2e": "playwright test"
   },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 2 Edge versions",
+    "last 2 Safari versions"
+  ],
   "dependencies": {
     "next": "16.3.1",
     "react": "19.2.8",
