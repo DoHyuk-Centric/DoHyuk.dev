@@ -16,15 +16,6 @@
   font-weight: 700;
 }
 
-.loginButton {
-  padding: 12px;
-  color: var(--text-whitegray);
-}
-.loginButton:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 50%;
-}
-
 .headerLeft {
   display: flex;
   align-items: center;

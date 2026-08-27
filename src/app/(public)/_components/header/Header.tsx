@@ -2,6 +2,7 @@ import Image from "next/image";
 import styles from "./Header.module.css";
 import { Power } from "lucide-react";
 import Link from "next/link";
+import IconLink from "@/components/IconLink";
 
 export default function Header() {
   return (
@@ -12,9 +13,7 @@ export default function Header() {
       </Link>
       <div className={styles.headerLeft}>
         <p>Today: 1200 Total: 10200</p>
-        <Link href="/login" className={styles.loginButton}>
-          <Power width="18px" height="18px" />
-        </Link>
+        <IconLink href="/login" icon={Power} alt="로그인" buttonSize={36} iconSize={18} />
       </div>
     </header>
   );
