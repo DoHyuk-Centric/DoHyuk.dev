@@ -1,0 +1,77 @@
+/* 사용자 인터렉션 */
+.iconButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  background-color: black;
+  color: white;
+}
+
+.iconButton:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* 아이콘 링크 (Header 로그인 / AppRail 메뉴 공용) */
+.iconLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-whitegray);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.iconLink:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.iconLink.active {
+  background-color: black;
+  color: white;
+}
+
+.iconLink.active:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* 게시물 토글 (List/Popular) */
+.listViewToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.8px solid var(--contour);
+  border-radius: 50%;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: border 0.2s ease, color 0.2s ease;
+  background-color: transparent;
+  color: var(--text-whitegray);
+  width: 32px;
+  height: 32px;
+}
+
+.listViewToggle:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.listViewToggle.active {
+  background-color: black;
+  color: white;
+  border: none;
+}
+
+.listViewToggle.active:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+@media (max-width: 768px) {
+  .listViewToggle {
+    width: 28px;
+    height: 28px;
+  }
+
+  .listViewToggle svg {
+    width: 14px;
+    height: 14px;
+  }
+}

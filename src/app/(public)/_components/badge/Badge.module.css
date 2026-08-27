@@ -1,0 +1,17 @@
+.icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding-inline: 8px;
+  padding-block: 4px;
+  border-radius: 4px;
+  gap: 4px;
+  font: 12px var(--font-geist-mono);
+  color: var(--text-whitegray);
+}
+
+.icon.popular {
+  background-color: black;
+  color: white;
+  font-weight: bold;
+}
