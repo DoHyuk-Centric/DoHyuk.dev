@@ -1,8 +1,11 @@
 CHANGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR)
 
 if echo "$CHANGED_FILES" | grep -qvE '(\.md$|^docs/)'; then
-  echo "Code changes detected — running typecheck, unit tests, and e2e tests..."
-  pnpm turbo run typecheck test test:e2e
+  echo "Code changes detected — running build, typecheck, unit tests, and e2e tests..."
+  # build가 가장 먼저다. Next.js가 .next/types에 생성하는 타입(LayoutProps 등)이 없으면
+  # typecheck가 실패하고, e2e도 next start로 앱을 띄우므로 빌드 산출물이 필요하다.
+  # (모노레포 시절에는 turbo.json의 dependsOn이 이 순서를 잡아주고 있었다)
+  pnpm build && pnpm typecheck && pnpm test && pnpm test:e2e
 else
-  echo "Only docs/markdown changed — skipping typecheck/test/e2e."
+  echo "Only docs/markdown changed — skipping build/typecheck/test/e2e."
 fi
