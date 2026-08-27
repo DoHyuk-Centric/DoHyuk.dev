@@ -1,3 +1,3 @@
 export default function Blog() {
-  return <>blog 페이지입니다.</>;
+  return <>Blog 페이지 입니다.</>;
 }
