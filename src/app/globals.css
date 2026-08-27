@@ -15,8 +15,10 @@ body {
 }
 
 body {
-  line-height: 1.5;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  background-color: var(--background);
+  font-family: var(--font-pretendard), sans-serif;
 }
 
 img,
@@ -55,4 +57,22 @@ ol {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+:root {
+  /* 
+  배경
+  기본 텍스트
+  보조 텍스트
+  흐린 텍스트
+  엑센트
+  */
+  --background: #faf9f5;
+  --text-black: #111111;
+  --text-darkgray: #555555;
+  --text-whitegray: #8E8D86;
+  --text-accent: #1B4D3E;
+
+  /* 구분선 */
+  --contour: #D5D3CB;
 }
