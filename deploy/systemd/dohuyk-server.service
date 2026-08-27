@@ -1,16 +1,16 @@
 [Unit]
-Description=dohuyk.dev backend (apps/server)
+Description=dohyuk.dev (Next.js)
 After=network.target
 
 [Service]
 Type=simple
 User=ubuntu
-WorkingDirectory=/home/ubuntu/DoHyuk.dev/apps/server
-ExecStart=/usr/bin/node src/index.ts
+WorkingDirectory=/home/ubuntu/DoHyuk.dev
+ExecStart=/usr/bin/node node_modules/next/dist/bin/next start -p 3000
 Restart=on-failure
 RestartSec=5
 Environment=NODE_ENV=production
-Environment=PORT=4000
+Environment=PORT=3000
 
 [Install]
 WantedBy=multi-user.target

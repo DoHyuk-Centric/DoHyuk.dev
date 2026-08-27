@@ -1,5 +1,8 @@
-# main 브랜치에 push(=PR 머지)되면 EC2에 apps/server를 자동으로 배포하는 워크플로우입니다.
-# apps/web은 별도(Vercel 등)로 배포하므로 이 워크플로우에서 다루지 않습니다.
+# main 브랜치에 push(=PR 머지)되면 EC2에 앱을 자동으로 배포하는 워크플로우입니다.
+#
+# TODO: 현재는 EC2 안에서 git pull만 하고 next build 단계가 없어 그대로는 동작하지 않습니다.
+#       아키텍처 설계문서 5.3절대로 "Actions에서 빌드 → 산출물만 EC2로 전송" 방식으로 재작성해야 합니다.
+#       (t3.micro 1 GiB에서는 next build가 OOM으로 죽습니다)
 
 on:
   push:
@@ -25,7 +28,7 @@ jobs:
             git checkout main
             git pull origin main
 
-            # 새로 추가된 의존성 설치 (server는 TS를 바로 실행하는 구조라 별도 빌드 불필요)
+            # 새로 추가된 의존성 설치
             pnpm install --frozen-lockfile
 
             # systemd 서비스 파일이 바뀌었을 수도 있으니 다시 복사 + 반영
