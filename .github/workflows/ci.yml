@@ -55,7 +55,9 @@ jobs:
           key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
 
       # 9) 브라우저 설치 — 캐시가 있으면 다운로드는 건너뛰고 OS 의존성만 빠르게 확인
-      - run: npx playwright install --with-deps chromium
+      #    브라우저를 지정하지 않으면 playwright.config.ts의 모든 프로젝트(chromium/firefox/webkit)를 설치한다.
+      #    전에는 chromium만 설치하면서도 캐시에 남아 있던 3종에 의존해 통과하고 있었다.
+      - run: npx playwright install --with-deps
 
       # 10) E2E 테스트(Playwright) — 빌드된 앱을 실행해 브라우저로 접속하고 검증
       - run: pnpm test:e2e
