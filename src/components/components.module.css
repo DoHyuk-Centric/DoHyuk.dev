@@ -75,3 +75,8 @@
     height: 14px;
   }
 }
+
+/* 빈상태 */
+.empty{
+  color: var(--text-whitegray);
+}
