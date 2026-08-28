@@ -1,10 +1,10 @@
 import style from "./layout.module.css";
-import AppRail from "./_components/appRail/AppRail";
+import AdminHeader from "./_components/adminHeader/AdminHeader";
 
 export default function AdminLayout({ children }: LayoutProps<"/">) {
   return (
     <div className={style.container}>
-      <AppRail />
+      <AdminHeader />
       <div className={style.content}>{children}</div>
     </div>
   );
