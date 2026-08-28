@@ -2,16 +2,16 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  padding-inline: 8px;
-  padding-block: 4px;
-  border-radius: 4px;
-  gap: 4px;
-  font: 12px var(--font-geist-mono);
+  padding-inline: var(--space-2);
+  padding-block: var(--space-1);
+  border-radius: var(--radius-sm);
+  gap: var(--space-1);
+  font: var(--font-size-xs) var(--font-geist-mono);
   color: var(--text-whitegray);
 }
 
 .icon.popular {
-  background-color: black;
-  color: white;
-  font-weight: bold;
+  background-color: var(--bg-black);
+  color: var(--text-white);
+  font-weight: var(--font-weight-bold);
 }

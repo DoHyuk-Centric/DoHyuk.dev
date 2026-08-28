@@ -60,7 +60,7 @@ table {
 }
 
 :root {
-  /* 
+  /*
   배경
   기본 텍스트
   보조 텍스트
@@ -73,6 +73,40 @@ table {
   --text-whitegray: #8E8D86;
   --text-accent: #1B4D3E;
 
+  /* 반전 색상 (active/선택 상태 등 어두운 배경 위) */
+  --bg-black: var(--text-black);
+  --text-white: #F5F4F0;
+
   /* 구분선 */
   --contour: #D5D3CB;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-9: 36px;
+
+  /* Typography */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 20px;
+  --font-weight-regular: 400;
+  --font-weight-bold: 700;
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-full: 9999px;
+
+  /* Motion */
+  --transition-fast: 0.2s ease;
+  --transition-slow: 0.5s ease;
+
+  /* Layout */
+  --layout-page-padding-x: var(--space-9);
+  --layout-header-height: 64px;
+  --layout-nav-height: 44px;
 }

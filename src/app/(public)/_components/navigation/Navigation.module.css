@@ -1,15 +1,15 @@
 .navigation {
-  padding-inline: 36px;
+  padding-inline: var(--layout-page-padding-x);
   display: flex;
   align-items: center;
-  gap: 24px;
-  font-size: 14px;
-  height: 44px;
+  gap: var(--space-6);
+  font-size: var(--font-size-sm);
+  height: var(--layout-nav-height);
 }
 
 .navigation a {
   color: var(--text-darkgray);
-  transition: color 0.5s ease;
+  transition: color var(--transition-slow);
 }
 
 .navigation a.active {
@@ -17,9 +17,9 @@
 }
 
 .distinction {
-  width: 4px;
-  height: 4px;
+  width: var(--space-1);
+  height: var(--space-1);
   flex-shrink: 0;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background-color: var(--text-whitegray);
 }
