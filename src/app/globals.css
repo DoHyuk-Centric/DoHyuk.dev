@@ -109,4 +109,5 @@ table {
   --layout-page-padding-x: var(--space-9);
   --layout-header-height: 64px;
   --layout-nav-height: 44px;
+  --layout-rail-size: 64px;
 }
