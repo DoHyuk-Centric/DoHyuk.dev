@@ -6,20 +6,25 @@ export default function ListViewToggle({
   alt,
   active = false,
   onClick,
+  buttonSize,
+  iconSize = 16,
 }: {
   icon: LucideIcon;
   alt: string;
   active?: boolean;
   onClick?: () => void;
+  buttonSize?: number;
+  iconSize?: number;
 }) {
   return (
     <button
       className={`${styles.listViewToggle} ${active ? styles.active : ""}`}
+      style={buttonSize ? { width: buttonSize, height: buttonSize } : undefined}
       aria-label={alt}
       aria-pressed={active}
       onClick={onClick}
     >
-      <Icon size={16} />
+      <Icon size={iconSize} />
     </button>
   );
 }
