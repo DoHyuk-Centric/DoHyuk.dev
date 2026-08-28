@@ -1,0 +1,11 @@
+.list {
+  margin-top: var(--space-12);
+}
+
+@media (max-width: 768px) {
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+}
