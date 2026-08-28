@@ -88,6 +88,7 @@ table {
   --space-6: 24px;
   --space-8: 32px;
   --space-9: 36px;
+  --space-16: 64px;
 
   /* Typography */
   --font-size-xs: 12px;

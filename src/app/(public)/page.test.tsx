@@ -1,10 +1,16 @@
-import { render } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
-import Home from "./page";
+import { describe, expect, it, vi } from "vitest";
 
-describe("Home page", () => {
-  it("renders without crashing", () => {
-    const { container } = render(<Home />);
-    expect(container).toBeTruthy();
+const { redirectMock } = vi.hoisted(() => ({ redirectMock: vi.fn() }));
+
+vi.mock("next/navigation", () => ({
+  redirect: redirectMock,
+}));
+
+import Blog from "./page";
+
+describe("Blog root page", () => {
+  it("redirects to the default year", async () => {
+    await Blog();
+    expect(redirectMock).toHaveBeenCalledWith("/2026");
   });
 });
