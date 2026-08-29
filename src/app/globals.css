@@ -119,3 +119,9 @@ table {
   --layout-nav-height: 44px;
   --layout-rail-size: 64px;
 }
+
+@media (max-width: 768px) {
+  :root {
+    --layout-page-padding-x: var(--space-8);
+  }
+}

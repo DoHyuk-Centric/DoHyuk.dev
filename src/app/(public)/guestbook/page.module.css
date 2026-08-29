@@ -1,0 +1,8 @@
+.guestbook {
+  margin-top: 64px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: var(--font-weight-semibold);
+}
