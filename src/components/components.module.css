@@ -35,47 +35,6 @@
   background-color: rgba(0, 0, 0, 0.7);
 }
 
-/* 게시물 토글 (List/Popular) */
-.listViewToggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 0.8px solid var(--contour);
-  border-radius: var(--radius-full);
-  transition: background-color var(--transition-fast), color var(--transition-fast);
-  transition: border var(--transition-fast), color var(--transition-fast);
-  background-color: transparent;
-  color: var(--text-whitegray);
-  width: var(--space-8);
-  height: var(--space-8);
-}
-
-.listViewToggle:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-.listViewToggle.active {
-  background-color: var(--bg-black);
-  color: var(--text-white);
-  border: none;
-}
-
-.listViewToggle.active:hover {
-  background-color: rgba(0, 0, 0, 0.7);
-}
-
-@media (max-width: 768px) {
-  .listViewToggle {
-    width: 28px;
-    height: 28px;
-  }
-
-  .listViewToggle svg {
-    width: 14px;
-    height: 14px;
-  }
-}
-
 /* 빈상태 */
 .empty{
   color: var(--text-whitegray);

@@ -1,16 +1,5 @@
 .controlBar {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
+  display: flex;
+  justify-content: center;
   margin-block-start: var(--space-16);
-}
-
-.yearNav {
-  grid-column: 2;
-  justify-self: center;
-}
-
-.listToggle {
-  grid-column: 3;
-  justify-self: end;
 }
