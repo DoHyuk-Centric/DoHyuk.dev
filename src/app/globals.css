@@ -85,20 +85,28 @@ table {
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
+  --space-5: 20px;
   --space-6: 24px;
   --space-8: 32px;
   --space-9: 36px;
+  --space-12: 48px;
+  --space-16: 64px;
 
   /* Typography */
   --font-size-xs: 12px;
   --font-size-sm: 14px;
   --font-size-md: 16px;
   --font-size-lg: 20px;
+  --font-size-11: 11px;
+  --font-size-13: 13px;
+  --font-size-18: 18px;
   --font-weight-regular: 400;
+  --font-weight-semibold: 600;
   --font-weight-bold: 700;
 
   /* Radius */
   --radius-sm: 4px;
+  --radius-md: 6px;
   --radius-full: 9999px;
 
   /* Motion */

@@ -1,0 +1,12 @@
+.year {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  font-weight: 700;
+  gap: 16px;
+  button {
+    width: 26px;
+    height: 26px;
+  }
+}
