@@ -13,6 +13,26 @@
   background-color: rgba(0, 0, 0, 0.7);
 }
 
+.iconButton.iconButtonOutline {
+  background-color: var(--background);
+  border: 0.8px solid var(--contour-light);
+  color: var(--text-whitegray);
+}
+
+.iconButton.iconButtonOutline:hover {
+  background-color: var(--bg-bubble);
+}
+
+.iconButton.iconButtonDanger {
+  background-color: var(--background);
+  border: 0.8px solid var(--danger-contour);
+  color: var(--danger);
+}
+
+.iconButton.iconButtonDanger:hover {
+  background-color: var(--danger-contour);
+}
+
 /* 아이콘 링크 (Header 로그인 / AppRail 메뉴 공용) */
 .iconLink {
   display: flex;
