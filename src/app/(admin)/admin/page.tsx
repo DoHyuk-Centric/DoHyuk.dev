@@ -1,3 +1,4 @@
+import ContainerHeader from "../_components/containerHeader/ContainerHeader";
 import DashboardCard from "./_components/DashboardCard";
 import { mockDashboardStats } from "./_components/mockDashboardStats";
 import Section from "./_components/section/Section";
@@ -9,12 +10,11 @@ import listStyles from "./_components/section/ContentLists.module.css";
 export default function Admin() {
   return (
     <div className={styles.page}>
-      <div className={styles.dashboard}>
-        <h1 className={styles.title}>대시보드</h1>
-        <time className={styles.currentDay} dateTime="2026.08.30">
-          2026년 8월 30일
-        </time>
-      </div>
+      <ContainerHeader
+        title="대시보드"
+        content="2026년 8월 30일"
+        dateTime="2026-08-30"
+      />
       <section className={styles.statsGrid}>
         <DashboardCard
           title="전체 게시글"
