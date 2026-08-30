@@ -13,6 +13,26 @@
   background-color: rgba(0, 0, 0, 0.7);
 }
 
+.iconButton.iconButtonOutline {
+  background-color: var(--background);
+  border: 0.8px solid var(--contour-light);
+  color: var(--text-whitegray);
+}
+
+.iconButton.iconButtonOutline:hover {
+  background-color: var(--bg-bubble);
+}
+
+.iconButton.iconButtonDanger {
+  background-color: var(--background);
+  border: 0.8px solid var(--danger-contour);
+  color: var(--danger);
+}
+
+.iconButton.iconButtonDanger:hover {
+  background-color: var(--danger-contour);
+}
+
 /* 아이콘 링크 (Header 로그인 / AppRail 메뉴 공용) */
 .iconLink {
   display: flex;
@@ -37,5 +57,23 @@
 
 /* 빈상태 */
 .empty{
+  color: var(--text-whitegray);
+}
+
+/* 상태 뱃지 (공개/비공개 등) */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  background-color: var(--bg-black);
+  color: var(--text-white);
+}
+
+.badge.badgeMuted {
+  background-color: transparent;
+  border: 0.8px solid var(--contour);
   color: var(--text-whitegray);
 }
