@@ -80,6 +80,9 @@ table {
   /* 구분선 */
   --contour: #D5D3CB;
 
+  /* 카드 배경 (배경보다 밝은 순백) */
+  --bg-white: #FFFFFF;
+
   /* 말풍선 배경 (방명록 등) */
   --bg-bubble: #EFEEE8;
 

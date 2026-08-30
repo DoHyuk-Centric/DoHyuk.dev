@@ -13,7 +13,7 @@ export default function Header() {
       </Link>
       <div className={styles.headerLeft}>
         <p>Today: 1200 Total: 10200</p>
-        <IconLink href="/login" icon={Power} alt="로그인" buttonSize={36} iconSize={18} />
+        <IconLink href="/admin" icon={Power} alt="로그인" buttonSize={36} iconSize={18} />
       </div>
     </header>
   );
