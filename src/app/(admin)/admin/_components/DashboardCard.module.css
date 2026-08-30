@@ -1,0 +1,20 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  background-color: var(--bg-white);
+  border: 0.8px solid var(--contour);
+  border-radius: var(--radius-md);
+  padding: var(--space-5) var(--space-6);
+}
+
+.title {
+  color: var(--text-whitegray);
+  font-size: var(--font-size-sm);
+}
+
+.value {
+  font-size: 28px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-black);
+}

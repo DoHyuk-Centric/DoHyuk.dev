@@ -1,0 +1,61 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.dashboard {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.title {
+  font-size: 22px;
+  color: var(--text-black);
+}
+
+.currentDay {
+  font-family: var(--font-geist-mono);
+  font-size: var(--font-size-xs);
+  color: var(--text-whitegray);
+}
+
+.page section + section {
+  border-top: 0.8px solid var(--contour);
+  padding-top: var(--space-12);
+}
+
+.statsGrid {
+  display: flex;
+  gap: var(--space-4) var(--space-3);
+}
+
+.statsGrid > * {
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .page {
+    gap: var(--space-8);
+  }
+
+  .dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .page section + section {
+    padding-top: var(--space-8);
+  }
+
+  .statsGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

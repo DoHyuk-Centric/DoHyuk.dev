@@ -5,7 +5,15 @@
 
 .content {
   flex: 1;
+  min-width: 0;
   padding-left: var(--layout-rail-size);
+}
+
+.main {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: var(--space-16);
+  padding-block: var(--space-12);
 }
 
 @media (max-width: 768px) {
@@ -13,5 +21,10 @@
     padding-left: 0;
     padding-top: var(--layout-header-height);
     padding-bottom: var(--layout-rail-size);
+  }
+
+  .main {
+    padding-inline: var(--space-5);
+    padding-block: var(--space-8);
   }
 }
