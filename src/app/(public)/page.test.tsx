@@ -9,8 +9,9 @@ vi.mock("next/navigation", () => ({
 import Blog from "./page";
 
 describe("Blog root page", () => {
-  it("redirects to the default year", async () => {
+  it("redirects to the current year", async () => {
+    const currentYear = new Date().getFullYear();
     await Blog();
-    expect(redirectMock).toHaveBeenCalledWith("/2026");
+    expect(redirectMock).toHaveBeenCalledWith(`/${currentYear}`);
   });
 });

@@ -1,0 +1,15 @@
+.guestbook {
+  margin-top: 64px;
+}
+
+@media (max-width: 768px) {
+  .guestbook {
+    margin-top: 32px;
+  }
+}
+
+.title {
+  margin-bottom: 32px;
+  font-size: 32px;
+  font-weight: var(--font-weight-semibold);
+}

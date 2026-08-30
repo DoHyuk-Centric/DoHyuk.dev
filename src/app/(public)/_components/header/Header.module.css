@@ -3,7 +3,6 @@
   justify-content: space-between;
   align-items: center;
   height: var(--layout-header-height);
-  padding-inline: var(--layout-page-padding-x);
   color: var(--text-whitegray);
 }
 

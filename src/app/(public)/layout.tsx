@@ -7,7 +7,7 @@ export default function PublicLayout({ children }: LayoutProps<"/">) {
     <div className={styles.container}>
       <Header />
       <Navigation />
-      {children}
+      <main>{children}</main>
     </div>
   );
 }
