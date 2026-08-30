@@ -80,6 +80,9 @@ table {
   /* 구분선 */
   --contour: #D5D3CB;
 
+  /* 말풍선 배경 (방명록 등) */
+  --bg-bubble: #EFEEE8;
+
   /* Spacing */
   --space-1: 4px;
   --space-2: 8px;
