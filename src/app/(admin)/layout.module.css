@@ -3,28 +3,20 @@
   min-height: 100vh;
 }
 
+/* 레일 보정만 담당하고, 가운데 정렬 본문 박스는 AdminMain이 갖는다.
+   하위 레이아웃이 본문 옆에 열을 하나 더 세울 수 있도록 flex 행으로 둔다. */
 .content {
   flex: 1;
   min-width: 0;
+  display: flex;
   padding-left: var(--layout-rail-size);
-}
-
-.main {
-  max-width: 1200px;
-  margin-inline: auto;
-  padding-inline: var(--space-16);
-  padding-block: var(--space-12);
 }
 
 @media (max-width: 768px) {
   .content {
+    flex-direction: column;
     padding-left: 0;
     padding-top: var(--layout-header-height);
     padding-bottom: var(--layout-rail-size);
-  }
-
-  .main {
-    padding-inline: var(--space-5);
-    padding-block: var(--space-8);
   }
 }
