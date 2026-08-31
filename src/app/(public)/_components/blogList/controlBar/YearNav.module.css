@@ -2,9 +2,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
-  font-weight: 700;
-  gap: 16px;
+  font-size: var(--font-size-32);
+  font-weight: var(--font-weight-bold);
+  gap: var(--space-4);
   button {
     width: 26px;
     height: 26px;
