@@ -64,16 +64,27 @@
 .badge {
   display: inline-flex;
   align-items: center;
-  padding: 2px var(--space-2);
+  flex-shrink: 0;
+  padding: var(--space-1) var(--space-2);
   border-radius: var(--radius-sm);
+  border: 0.8px solid var(--contour);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
-  background-color: var(--bg-black);
-  color: var(--text-white);
+  white-space: nowrap;
+  color: var(--text-whitegray);
+  background-color: transparent;
+  transition: background-color var(--transition-fast);
 }
 
-.badge.badgeMuted {
-  background-color: transparent;
-  border: 0.8px solid var(--contour);
-  color: var(--text-whitegray);
+.badge:hover {
+  background-color: var(--contour-light);
+}
+
+.badge.badgeAccent {
+  border-color: var(--text-accent);
+  color: var(--text-accent);
+}
+
+.badge.badgeAccent:hover {
+  background-color: var(--bg-bubble);
 }

@@ -5,7 +5,7 @@
 }
 
 .title {
-  font-size: 22px;
+  font-size: var(--font-size-22);
   color: var(--text-black);
 }
 
@@ -22,6 +22,6 @@
   }
 
   .title {
-    font-size: 20px;
+    font-size: var(--font-size-lg);
   }
 }

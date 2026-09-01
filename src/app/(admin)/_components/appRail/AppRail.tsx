@@ -35,10 +35,10 @@ export default function AppRail() {
         iconSize={20}
       />
       <IconLink
-        href="/admin/comments"
+        href="/admin/reactions/comments"
         icon={MessageSquareText}
         alt="댓글"
-        active={pathname === "/admin/comments"}
+        active={pathname.startsWith("/admin/reactions")}
         radius={4}
         buttonSize={44}
         iconSize={20}
