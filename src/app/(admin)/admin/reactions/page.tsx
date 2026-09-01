@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+
 export default function Reactions() {
-  return <></>;
+  redirect("/admin/reactions/comments");
 }

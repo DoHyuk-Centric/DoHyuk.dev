@@ -4,18 +4,22 @@ export default function AdminTable({
   caption,
   head,
   children,
+  className,
 }: {
   caption: string;
   head: React.ReactNode;
   children: React.ReactNode;
+  className?: string;
 }) {
   return (
-    <table className={styles.table}>
-      <caption className={styles.caption}>{caption}</caption>
-      <thead>
-        <tr>{head}</tr>
-      </thead>
-      <tbody>{children}</tbody>
-    </table>
+    <div className={styles.tableWrapper}>
+      <table className={`${styles.table} ${className ?? ""}`}>
+        <caption className={styles.caption}>{caption}</caption>
+        <thead>
+          <tr>{head}</tr>
+        </thead>
+        <tbody>{children}</tbody>
+      </table>
+    </div>
   );
 }
