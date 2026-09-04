@@ -1,0 +1,97 @@
+@media (min-width: 769px) {
+  .table {
+    min-width: 640px;
+  }
+}
+
+.typeCol {
+  width: 88px;
+}
+
+.dateCol {
+  width: 120px;
+}
+
+.remainingCol {
+  width: 96px;
+}
+
+.actionsCol {
+  width: 96px;
+  text-align: right;
+}
+
+.type {
+  font-weight: var(--font-weight-regular);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  border: 0.8px solid var(--contour);
+  font-size: var(--font-size-xs);
+  color: var(--text-whitegray);
+  white-space: nowrap;
+}
+
+.content {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.date {
+  font-family: var(--font-geist-mono);
+  color: var(--contour);
+  white-space: nowrap;
+}
+
+.remaining {
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-whitegray);
+  white-space: nowrap;
+}
+
+.remainingCritical {
+  color: var(--danger);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+@media (max-width: 768px) {
+  .row {
+    grid-template-columns: max-content max-content 1fr;
+    grid-template-areas:
+      "type remaining date"
+      "content content content"
+      "actions actions actions";
+  }
+
+  .type {
+    grid-area: type;
+  }
+
+  .remaining {
+    grid-area: remaining;
+  }
+
+  .date {
+    grid-area: date;
+    justify-self: end;
+  }
+
+  .content {
+    grid-area: content;
+    white-space: normal;
+  }
+
+  .actions {
+    grid-area: actions;
+  }
+}
