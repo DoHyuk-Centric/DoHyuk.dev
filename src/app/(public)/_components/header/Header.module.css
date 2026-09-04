@@ -22,3 +22,19 @@
   font-family: var(--font-geist-mono);
   font-size: var(--font-size-xs);
 }
+
+.stats {
+  display: flex;
+  gap: var(--space-2);
+}
+
+@media (max-width: 768px) {
+  .logoText {
+    display: none;
+  }
+
+  .stats {
+    flex-direction: column;
+    gap: 0;
+  }
+}
