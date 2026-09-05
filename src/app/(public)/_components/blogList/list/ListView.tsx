@@ -10,7 +10,12 @@ export default function ListView({ posts }: { posts: Post[] }) {
   return (
     <div className={styles.list}>
       {posts.map((post) => (
-        <ListPostItem key={post.slug} createdAt={post.createdAt} title={post.title} />
+        <ListPostItem
+          key={post.slug}
+          slug={post.slug}
+          createdAt={post.createdAt}
+          title={post.title}
+        />
       ))}
     </div>
   );

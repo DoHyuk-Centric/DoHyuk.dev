@@ -1,0 +1,24 @@
+.article {
+  padding-block: var(--space-6);
+}
+
+.date {
+  font-family: var(--font-geist-mono);
+  font-size: var(--font-size-sm);
+  color: var(--text-whitegray);
+}
+
+.title {
+  font-family: var(--font-pretendard);
+  font-size: var(--font-size-18);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-black);
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.content {
+  font-family: var(--font-pretendard);
+  color: var(--text-black);
+  line-height: 1.8;
+}

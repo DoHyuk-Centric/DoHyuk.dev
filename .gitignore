@@ -18,6 +18,9 @@ blob-report/
 build/
 dist/
 
+# local-only content (dev preview, never published)
+content/posts/*.local.mdx
+
 # misc
 .DS_Store
 *.pem
