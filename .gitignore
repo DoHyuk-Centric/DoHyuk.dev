@@ -18,11 +18,8 @@ blob-report/
 build/
 dist/
 
-# sqlite
-*.db
-*.db-journal
-*.db-wal
-*.db-shm
+# local-only content (dev preview, never published)
+content/posts/*.local.mdx
 
 # misc
 .DS_Store

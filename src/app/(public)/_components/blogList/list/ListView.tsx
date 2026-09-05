@@ -1,6 +1,6 @@
 import ListPostItem from "./ListPostItem";
 import styles from "./ListView.module.css";
-import type { Post } from "../mockPosts";
+import type { Post } from "@/lib/queries/posts";
 import EmptyState from "@/components/emptyState";
 
 export default function ListView({ posts }: { posts: Post[] }) {
@@ -11,10 +11,10 @@ export default function ListView({ posts }: { posts: Post[] }) {
     <div className={styles.list}>
       {posts.map((post) => (
         <ListPostItem
-          key={post.id}
+          key={post.slug}
+          slug={post.slug}
           createdAt={post.createdAt}
           title={post.title}
-          views={post.views}
         />
       ))}
     </div>
