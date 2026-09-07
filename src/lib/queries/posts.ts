@@ -8,6 +8,9 @@ export type Post = {
   slug: string;
   title: string;
   createdAt: string;
+  excerpt?: string;
+  featured?: boolean;
+  coverImage?: string;
 };
 
 export type PostDetail = Post & { content: string };
@@ -38,6 +41,9 @@ function readPost(filename: string, dir: string): PostDetail {
     slug: filename.replace(/\.mdx$/, ""),
     title: data.title ?? filename,
     createdAt: data.createdAt ?? "",
+    excerpt: data.excerpt,
+    featured: data.featured === "true",
+    coverImage: data.coverImage,
     content,
   };
 }
@@ -55,9 +61,18 @@ export function getPostsByYear(year: number, dir: string = POSTS_DIR): Post[] {
   return getAllPosts(dir).filter((post) => new Date(post.createdAt).getFullYear() === year);
 }
 
+export function getPostsSince(startYear: number, dir: string = POSTS_DIR): Post[] {
+  return getAllPosts(dir).filter((post) => new Date(post.createdAt).getFullYear() >= startYear);
+}
+
 export function getPostBySlug(slug: string, dir: string = POSTS_DIR): PostDetail | null {
   const filename = `${slug}.mdx`;
   if (!fs.existsSync(path.join(dir, filename))) return null;
 
   return readPost(filename, dir);
+}
+
+export function getFeaturedPost(dir: string = POSTS_DIR): Post | null {
+  const featured = getAllPosts(dir).filter((post) => post.featured);
+  return featured[0] ?? null;
 }
