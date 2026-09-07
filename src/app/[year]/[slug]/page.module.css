@@ -4,13 +4,13 @@
 
 .date {
   font-family: var(--font-geist-mono);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xs);
   color: var(--text-whitegray);
 }
 
 .title {
   font-family: var(--font-pretendard);
-  font-size: var(--font-size-18);
+  font-size: var(--font-size-md);
   font-weight: var(--font-weight-bold);
   color: var(--text-black);
   margin-top: var(--space-2);

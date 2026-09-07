@@ -14,10 +14,10 @@ export default function ListPostItem({
 
   return (
     <Link href={`/${year}/${slug}`} className={styles.item}>
+      <h3 className={styles.title}>{title}</h3>
       <time className={styles.date} dateTime={createdAt}>
         {createdAt}
       </time>
-      <h3 className={styles.title}>{title}</h3>
     </Link>
   );
 }

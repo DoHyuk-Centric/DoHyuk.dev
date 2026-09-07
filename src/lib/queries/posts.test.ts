@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { getAllPosts, getPostBySlug, getPostsByYear } from "./posts";
+import { getAllPosts, getFeaturedPost, getPostBySlug, getPostsByYear } from "./posts";
 
 const FIXTURES_DIR = path.join(import.meta.dirname, "__fixtures__/posts");
 const EMPTY_DIR = path.join(import.meta.dirname, "__fixtures__/empty");
@@ -11,7 +11,12 @@ describe("getAllPosts", () => {
   it("parses frontmatter and sorts posts by date descending", () => {
     const posts = getAllPosts(FIXTURES_DIR);
 
-    expect(posts.map((post) => post.slug)).toEqual(["post-a", "post-b", "post-c"]);
+    expect(posts.map((post) => post.slug)).toEqual([
+      "post-a",
+      "post-b",
+      "post-featured",
+      "post-c",
+    ]);
     expect(posts[0]).toMatchObject({
       slug: "post-a",
       title: "A 게시글",
@@ -44,6 +49,7 @@ describe("getPostBySlug", () => {
       slug: "post-a",
       title: "A 게시글",
       createdAt: "2026-08-28",
+      featured: false,
       content: "\nfixture post A\n",
     });
   });
@@ -74,10 +80,28 @@ describe("getPostBySlug", () => {
         slug: "post-crlf",
         title: "CRLF 게시글",
         createdAt: "2024-01-01",
+        featured: false,
         content: "\nfixture post CRLF\n",
       });
     } finally {
       fs.rmSync(tmpDir, { recursive: true, force: true });
     }
+  });
+});
+
+describe("getFeaturedPost", () => {
+  it("returns the post marked as featured", () => {
+    const post = getFeaturedPost(FIXTURES_DIR);
+
+    expect(post).toMatchObject({
+      slug: "post-featured",
+      title: "대표 게시글",
+      excerpt: "이 글이 카드로 보여지는 대표 게시글입니다.",
+      featured: true,
+    });
+  });
+
+  it("returns null when no post is featured", () => {
+    expect(getFeaturedPost(EMPTY_DIR)).toBeNull();
   });
 });

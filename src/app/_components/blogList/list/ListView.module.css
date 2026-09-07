@@ -1,5 +1,5 @@
 .list {
-  margin-top: var(--space-12);
+  padding-inline: var(--space-4);
 }
 
 @media (max-width: 768px) {
