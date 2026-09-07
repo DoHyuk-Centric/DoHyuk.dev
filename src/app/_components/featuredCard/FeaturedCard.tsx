@@ -14,8 +14,9 @@ export default function FeaturedCard({ post }: { post: Post }) {
             src={post.coverImage}
             alt=""
             fill
+            priority
             className={styles.coverImage}
-            sizes="(max-width: 768px) 100vw, 1440px"
+            sizes="(max-width: 768px) 100vw, 1080px"
           />
         </div>
       ) : (
