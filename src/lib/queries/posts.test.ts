@@ -50,8 +50,15 @@ describe("getPostBySlug", () => {
       title: "A 게시글",
       createdAt: "2026-08-28",
       featured: false,
+      coverImage: "/images/posts/post-a/cover.webp",
       content: "\nfixture post A\n",
     });
+  });
+
+  it("returns undefined coverImage when the post folder has no cover.webp", () => {
+    const post = getPostBySlug("post-b", FIXTURES_DIR);
+
+    expect(post?.coverImage).toBeUndefined();
   });
 
   it("returns null when the slug does not exist", () => {
@@ -62,6 +69,8 @@ describe("getPostBySlug", () => {
     // Git normalizes CRLF -> LF on commit, so this fixture is generated at
     // runtime instead of checked in, to guarantee the bytes stay CRLF.
     const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "posts-crlf-"));
+    const postDir = path.join(tmpDir, "post-crlf");
+    fs.mkdirSync(postDir);
     const crlfContent = [
       "---",
       "title: CRLF 게시글",
@@ -71,7 +80,7 @@ describe("getPostBySlug", () => {
       "fixture post CRLF",
       "",
     ].join("\r\n");
-    fs.writeFileSync(path.join(tmpDir, "post-crlf.mdx"), crlfContent, "utf-8");
+    fs.writeFileSync(path.join(postDir, "index.mdx"), crlfContent, "utf-8");
 
     try {
       const post = getPostBySlug("post-crlf", tmpDir);

@@ -34,16 +34,25 @@ function parseFrontmatter(raw: string): { data: Record<string, string>; content:
   return { data, content: match[2] };
 }
 
-function readPost(filename: string, dir: string): PostDetail {
-  const raw = fs.readFileSync(path.join(dir, filename), "utf-8");
+// A post's cover image is convention-based, not a frontmatter field: dropping
+// content/posts/<slug>/cover.* is enough. scripts/sync-images.mjs optimizes it
+// to cover.webp and copies it into public/images/posts/<slug>/ before dev/build.
+function findCoverImage(postDir: string, slug: string): string | undefined {
+  if (!fs.existsSync(path.join(postDir, "cover.webp"))) return undefined;
+  return `/images/posts/${slug}/cover.webp`;
+}
+
+function readPost(slug: string, dir: string): PostDetail {
+  const postDir = path.join(dir, slug);
+  const raw = fs.readFileSync(path.join(postDir, "index.mdx"), "utf-8");
   const { data, content } = parseFrontmatter(raw);
   return {
-    slug: filename.replace(/\.mdx$/, ""),
-    title: data.title ?? filename,
+    slug,
+    title: data.title ?? slug,
     createdAt: data.createdAt ?? "",
     excerpt: data.excerpt,
     featured: data.featured === "true",
-    coverImage: data.coverImage,
+    coverImage: findCoverImage(postDir, slug),
     content,
   };
 }
@@ -51,8 +60,13 @@ function readPost(filename: string, dir: string): PostDetail {
 export function getAllPosts(dir: string = POSTS_DIR): Post[] {
   if (!fs.existsSync(dir)) return [];
 
-  const filenames = fs.readdirSync(dir).filter((name) => name.endsWith(".mdx"));
-  const posts = filenames.map((filename) => readPost(filename, dir));
+  const slugs = fs
+    .readdirSync(dir, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+    .filter((slug) => fs.existsSync(path.join(dir, slug, "index.mdx")));
+
+  const posts = slugs.map((slug) => readPost(slug, dir));
 
   return posts.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
 }
@@ -66,10 +80,9 @@ export function getPostsSince(startYear: number, dir: string = POSTS_DIR): Post[
 }
 
 export function getPostBySlug(slug: string, dir: string = POSTS_DIR): PostDetail | null {
-  const filename = `${slug}.mdx`;
-  if (!fs.existsSync(path.join(dir, filename))) return null;
+  if (!fs.existsSync(path.join(dir, slug, "index.mdx"))) return null;
 
-  return readPost(filename, dir);
+  return readPost(slug, dir);
 }
 
 export function getFeaturedPost(dir: string = POSTS_DIR): Post | null {

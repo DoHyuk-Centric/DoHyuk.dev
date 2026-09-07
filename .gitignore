@@ -19,7 +19,10 @@ build/
 dist/
 
 # local-only content (dev preview, never published)
-content/posts/*.local.mdx
+content/posts/*.local/
+
+# generated from content/posts/*/cover.* by scripts/sync-images.mjs
+public/images/posts/
 
 # misc
 .DS_Store
