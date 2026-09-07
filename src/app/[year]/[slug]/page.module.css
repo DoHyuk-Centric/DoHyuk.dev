@@ -22,3 +22,25 @@
   color: var(--text-black);
   line-height: 1.8;
 }
+
+.content pre {
+  margin-block: var(--space-4);
+  padding: var(--space-4);
+  border: 0.8px solid var(--contour);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  font-family: var(--font-geist-mono);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+.content code {
+  font-family: var(--font-geist-mono);
+}
+
+.content :not(pre) > code {
+  padding-inline: var(--space-1);
+  border-radius: var(--radius-sm);
+  background: var(--bg-bubble);
+  font-size: var(--font-size-xs);
+}

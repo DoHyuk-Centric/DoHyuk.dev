@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import rehypePrettyCode from "rehype-pretty-code";
 import { getPostBySlug } from "@/lib/queries/posts";
+import { rehypePrettyCodeOptions } from "@/lib/mdx/highlighter";
 import styles from "./page.module.css";
 
 export default async function PostDetail({
@@ -22,7 +24,14 @@ export default async function PostDetail({
       </time>
       <h1 className={styles.title}>{post.title}</h1>
       <div className={styles.content}>
-        <MDXRemote source={post.content} />
+        <MDXRemote
+          source={post.content}
+          options={{
+            mdxOptions: {
+              rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions]],
+            },
+          }}
+        />
       </div>
     </article>
   );
