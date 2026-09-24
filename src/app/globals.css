@@ -132,6 +132,7 @@ table {
   --layout-header-height: 64px;
   --layout-nav-height: 44px;
   --layout-rail-size: 64px;
+  --layout-prose-width: 720px;
 }
 
 @media (max-width: 768px) {
