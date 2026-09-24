@@ -1,9 +1,19 @@
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypePrettyCode from "rehype-pretty-code";
-import { getPostBySlug } from "@/lib/queries/posts";
+import { getAllPosts, getPostBySlug } from "@/lib/queries/posts";
 import { rehypePrettyCodeOptions } from "@/lib/mdx/highlighter";
 import styles from "./page.module.css";
+
+// 정적 export라 빌드 때 만든 글 페이지만 존재한다. 그 밖의 경로는 404.
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return getAllPosts().map((post) => ({
+    year: String(new Date(post.createdAt).getFullYear()),
+    slug: post.slug,
+  }));
+}
 
 export default async function PostDetail({
   params,

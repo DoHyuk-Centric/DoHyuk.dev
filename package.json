@@ -8,7 +8,7 @@
     "dev": "next dev",
     "prebuild": "node scripts/sync-images.mjs",
     "build": "next build",
-    "start": "next start",
+    "start": "node scripts/serve-out.mjs",
     "typecheck": "tsc --noEmit",
     "lint:css": "stylelint \"src/**/*.css\"",
     "test": "vitest run",
