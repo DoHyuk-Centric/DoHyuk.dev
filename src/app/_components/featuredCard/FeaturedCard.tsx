@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { withBasePath } from "@/lib/basePath";
 import type { Post } from "@/lib/queries/posts";
 import styles from "./FeaturedCard.module.css";
 
@@ -11,7 +12,7 @@ export default function FeaturedCard({ post }: { post: Post }) {
       {post.coverImage ? (
         <div className={styles.image}>
           <Image
-            src={post.coverImage}
+            src={withBasePath(post.coverImage)}
             alt=""
             fill
             priority

@@ -1,39 +1,61 @@
-# main 브랜치에 push(=PR 머지)되면 EC2에 앱을 자동으로 배포하는 워크플로우입니다.
+# main 브랜치에 push(=PR 머지)되면 정적 사이트를 빌드해 GitHub Pages에 배포하는 워크플로우입니다.
 #
-# TODO: 현재는 EC2 안에서 git pull만 하고 next build 단계가 없어 그대로는 동작하지 않습니다.
-#       아키텍처 설계문서 5.3절대로 "Actions에서 빌드 → 산출물만 EC2로 전송" 방식으로 재작성해야 합니다.
-#       (t3.micro 1 GiB에서는 next build가 OOM으로 죽습니다)
+# 사전 설정: 리포 Settings > Pages > Source를 "GitHub Actions"로 지정하고,
+#           도메인을 연결할 때는 같은 화면의 Custom domain에 dohyuk.dev를 입력한다.
+#           (이 방식에서는 리포에 CNAME 파일을 두지 않아도 된다)
+#           커스텀 도메인 없이는 https://dohyuk-centric.github.io/DoHyuk.dev/ 에서 서비스된다.
 
 on:
   push:
     branches: [main]
+  workflow_dispatch: # Actions 탭에서 수동 실행 (연도가 바뀌었을 때 재빌드 등)
+
+# Pages 배포에 필요한 최소 권한
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 배포는 한 번에 하나만. 진행 중인 배포는 끝까지 마친다.
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-      # GitHub의 가상 컴퓨터에서, EC2 서버로 SSH 접속해서
-      # 아래 script를 EC2 "안에서" 실행시켜주는 액션입니다.
-      - name: Deploy to EC2
-        uses: appleboy/ssh-action@v1
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
         with:
-          host: ${{ secrets.EC2_HOST }} # EC2 퍼블릭 IP
-          username: ${{ secrets.EC2_USER }} # ubuntu
-          key: ${{ secrets.EC2_SSH_KEY }} # 배포 전용 개인키
-          script: |
-            set -e
-            cd ~/DoHyuk.dev
+          node-version: 24
+          cache: pnpm
 
-            # 최신 코드 받아오기
-            git checkout main
-            git pull origin main
+      - run: pnpm install --frozen-lockfile
 
-            # 새로 추가된 의존성 설치
-            pnpm install --frozen-lockfile
+      # Pages 주소에서 base_path를 알아낸다.
+      # 커스텀 도메인 없이는 "/DoHyuk.dev", 커스텀 도메인을 연결하면 빈 값이 된다.
+      - id: pages
+        uses: actions/configure-pages@v5
 
-            # systemd 서비스 파일이 바뀌었을 수도 있으니 다시 복사 + 반영
-            sudo cp deploy/systemd/dohuyk-server.service /etc/systemd/system/
-            sudo systemctl daemon-reload
+      # prebuild(이미지 동기화) -> next build 순서로 실행되어 out/ 이 만들어진다
+      - run: pnpm build
+        env:
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
 
-            # 새 코드로 재시작
-            sudo systemctl restart dohuyk-server
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

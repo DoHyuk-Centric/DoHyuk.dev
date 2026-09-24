@@ -3,9 +3,18 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypePrettyCode from "rehype-pretty-code";
 import remarkGfm from "remark-gfm";
-import { getPostBySlug } from "@/lib/queries/posts";
+import { getAllPosts, getPostBySlug } from "@/lib/queries/posts";
 import { rehypePrettyCodeOptions } from "@/lib/mdx/highlighter";
 import styles from "./page.module.css";
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return getAllPosts().map((post) => ({
+    year: String(new Date(post.createdAt).getFullYear()),
+    slug: post.slug,
+  }));
+}
 
 export default async function PostDetail({
   params,
