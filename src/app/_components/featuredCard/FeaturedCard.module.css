@@ -1,0 +1,118 @@
+.card {
+  position: relative;
+  display: block;
+  height: 320px;
+  border: 0.8px solid var(--contour);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-top: var(--space-9);
+  margin-bottom: var(--space-12);
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  background: linear-gradient(135deg, var(--contour) 0%, var(--contour-light) 100%);
+  color: var(--text-whitegray);
+  font-size: var(--font-size-11);
+}
+
+.imageIcon {
+  width: 28px;
+  height: 28px;
+}
+
+.coverImage {
+  object-fit: cover;
+}
+
+.panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 52%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: var(--space-8);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.eyebrow {
+  font-size: var(--font-size-11);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-accent);
+}
+
+.date {
+  font-family: var(--font-geist-mono);
+  font-size: var(--font-size-xs);
+  color: var(--text-whitegray);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-black);
+  line-height: 1.4;
+}
+
+.excerptWrap {
+  position: relative;
+  flex: 1;
+  margin-top: var(--space-4);
+  overflow: hidden;
+}
+
+.excerpt {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  line-height: 1.9;
+  color: var(--text-darkgray);
+  mask-image: linear-gradient(to bottom, black 30%, transparent 90%);
+  -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 90%);
+}
+
+@media (max-width: 768px) {
+  .card {
+    height: auto;
+  }
+
+  .image {
+    position: relative;
+    aspect-ratio: 16 / 10;
+  }
+
+  .panel {
+    position: static;
+    width: auto;
+    padding: var(--space-5);
+    background: var(--bg-white);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .title {
+    font-size: var(--font-size-18);
+  }
+
+  .excerptWrap {
+    max-height: 66px;
+    flex: none;
+  }
+}

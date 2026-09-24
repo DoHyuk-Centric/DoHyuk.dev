@@ -1,0 +1,29 @@
+.section {
+}
+
+.teaserHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-block-start: var(--space-16);
+  margin-bottom: var(--space-8);
+  border-bottom: 0.8px solid var(--contour);
+}
+
+.yearLabel {
+  font-size: var(--font-size-22);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-black);
+}
+
+.moreLink {
+  font-family: var(--font-pretendard);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  color: var(--text-whitegray);
+  transition: color var(--transition-fast);
+}
+
+.moreLink:hover {
+  color: var(--text-black);
+}

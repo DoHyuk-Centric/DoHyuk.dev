@@ -1,0 +1,12 @@
+.year {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--font-size-22);
+  font-weight: var(--font-weight-bold);
+  gap: var(--space-4);
+  button {
+    width: 26px;
+    height: 26px;
+  }
+}

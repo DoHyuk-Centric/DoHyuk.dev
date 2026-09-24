@@ -1,0 +1,40 @@
+/* 사용자 인터렉션 */
+.iconButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+  background-color: var(--bg-black);
+  color: var(--text-white);
+}
+
+.iconButton:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.iconButton.iconButtonOutline {
+  background-color: var(--background);
+  border: 0.8px solid var(--contour-light);
+  color: var(--text-whitegray);
+}
+
+.iconButton.iconButtonOutline:hover {
+  background-color: var(--bg-bubble);
+}
+
+.iconButton.iconButtonDanger {
+  background-color: var(--background);
+  border: 0.8px solid var(--danger-contour);
+  color: var(--danger);
+}
+
+.iconButton.iconButtonDanger:hover {
+  background-color: var(--danger-contour);
+}
+
+/* 빈상태 */
+.empty {
+  color: var(--text-whitegray);
+}
+

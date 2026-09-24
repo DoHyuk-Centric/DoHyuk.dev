@@ -1,0 +1,63 @@
+# 이 파일이 언제, 무엇을 하는지 정의하는 GitHub Actions 워크플로우 파일입니다.
+# 저장소를 GitHub에 push하면, GitHub이 이 파일을 읽고 자동으로 실행합니다.
+
+# ── 언제 실행할지 ──────────────────────────────
+on:
+  push:
+    branches: [develop, main]
+    paths-ignore: ["**/*.md", "docs/**", ".github/**", "deploy/**"] # 문서/워크플로우/배포 설정만 바뀌면 CI를 아예 트리거하지 않는다
+  pull_request:
+    branches: [develop, main]
+    paths-ignore: ["**/*.md", "docs/**", ".github/**", "deploy/**"]
+
+# 같은 브랜치에 연달아 push되면, 아직 안 끝난 이전 실행은 취소하고 최신 것만 돌린다
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+# ── 무엇을 실행할지 ──────────────────────────────
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      # 1) 저장소 코드를 이 가상 컴퓨터로 복사해온다
+      - uses: actions/checkout@v4
+
+      # 2) pnpm 설치
+      - uses: pnpm/action-setup@v4
+
+      # 3) Node.js 설치 (버전 24, pnpm 패키지 캐시도 같이 활성화)
+      #    node:sqlite가 Node 24부터 제공되므로 이 버전을 고정한다
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      # 4) 의존성 설치 (lockfile과 안 맞으면 실패시켜 버전 불일치를 방지)
+      - run: pnpm install --frozen-lockfile
+
+      # 5) 프로덕션 빌드 — 가장 먼저 돌려야 한다.
+      #    Next.js가 .next/types에 생성하는 타입(LayoutProps 등)이 없으면 typecheck가 실패하고,
+      #    E2E도 next start로 앱을 띄우므로 빌드 산출물이 필요하다.
+      - run: pnpm build
+
+      # 6) 타입체크
+      - run: pnpm typecheck
+
+      # 7) 단위 테스트 (Vitest)
+      - run: pnpm test
+
+      # 8) Playwright 브라우저 캐시 복원 — lockfile(=Playwright 버전)이 안 바뀌면
+      #    아래 install 스텝에서 브라우저를 다시 다운로드하지 않는다
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+      # 9) 브라우저 설치 — 캐시가 있으면 다운로드는 건너뛰고 OS 의존성만 빠르게 확인
+      #    브라우저를 지정하지 않으면 playwright.config.ts의 모든 프로젝트(chromium/firefox/webkit)를 설치한다.
+      #    전에는 chromium만 설치하면서도 캐시에 남아 있던 3종에 의존해 통과하고 있었다.
+      - run: npx playwright install --with-deps
+
+      # 10) E2E 테스트(Playwright) — 빌드된 앱을 실행해 브라우저로 접속하고 검증
+      - run: pnpm test:e2e

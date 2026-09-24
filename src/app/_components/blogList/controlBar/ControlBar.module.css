@@ -1,0 +1,6 @@
+.controlBar {
+  display: flex;
+  justify-content: center;
+  margin-block-start: var(--space-16);
+  margin-bottom: var(--space-12);
+}
