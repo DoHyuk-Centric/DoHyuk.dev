@@ -1,8 +1,9 @@
 # main 브랜치에 push(=PR 머지)되면 정적 사이트를 빌드해 GitHub Pages에 배포하는 워크플로우입니다.
 #
 # 사전 설정: 리포 Settings > Pages > Source를 "GitHub Actions"로 지정하고,
-#           같은 화면의 Custom domain에 dohyuk.dev를 입력한다.
+#           도메인을 연결할 때는 같은 화면의 Custom domain에 dohyuk.dev를 입력한다.
 #           (이 방식에서는 리포에 CNAME 파일을 두지 않아도 된다)
+#           커스텀 도메인 없이는 https://dohyuk-centric.github.io/DoHyuk.dev/ 에서 서비스된다.
 
 on:
   push:
@@ -35,8 +36,15 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      # Pages 주소에서 base_path를 알아낸다.
+      # 커스텀 도메인 없이는 "/DoHyuk.dev", 커스텀 도메인을 연결하면 빈 값이 된다.
+      - id: pages
+        uses: actions/configure-pages@v5
+
       # prebuild(이미지 동기화) -> next build 순서로 실행되어 out/ 이 만들어진다
       - run: pnpm build
+        env:
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
 
       - uses: actions/upload-pages-artifact@v3
         with:
