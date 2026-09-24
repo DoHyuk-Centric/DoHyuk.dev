@@ -1,6 +1,8 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypePrettyCode from "rehype-pretty-code";
+import remarkGfm from "remark-gfm";
 import { getPostBySlug } from "@/lib/queries/posts";
 import { rehypePrettyCodeOptions } from "@/lib/mdx/highlighter";
 import styles from "./page.module.css";
@@ -19,15 +21,31 @@ export default async function PostDetail({
 
   return (
     <article className={styles.article}>
-      <time className={styles.date} dateTime={post.createdAt}>
-        {post.createdAt}
-      </time>
-      <h1 className={styles.title}>{post.title}</h1>
+      <header className={styles.header}>
+        <time className={styles.date} dateTime={post.createdAt}>
+          {post.createdAt}
+        </time>
+        <h1 className={styles.title}>{post.title}</h1>
+        {post.excerpt && <p className={styles.excerpt}>{post.excerpt}</p>}
+      </header>
+      {post.coverImage && (
+        <div className={styles.cover}>
+          <Image
+            src={post.coverImage}
+            alt=""
+            fill
+            priority
+            className={styles.coverImage}
+            sizes="(max-width: 768px) 100vw, 720px"
+          />
+        </div>
+      )}
       <div className={styles.content}>
         <MDXRemote
           source={post.content}
           options={{
             mdxOptions: {
+              remarkPlugins: [remarkGfm],
               rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions]],
             },
           }}
