@@ -2,7 +2,13 @@ import { describe, expect, it } from "vitest";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { getAllPosts, getFeaturedPost, getPostBySlug, getPostsByYear } from "./posts";
+import {
+  getAllPosts,
+  getFeaturedPost,
+  getPostBySlug,
+  getPostsByCategory,
+  getPostsByYear,
+} from "./posts";
 
 const FIXTURES_DIR = path.join(import.meta.dirname, "__fixtures__/posts");
 const EMPTY_DIR = path.join(import.meta.dirname, "__fixtures__/empty");
@@ -41,6 +47,56 @@ describe("getPostsByYear", () => {
   });
 });
 
+describe("getPostsByCategory", () => {
+  it("filters posts to the given category", () => {
+    const posts = getPostsByCategory("experience", FIXTURES_DIR);
+
+    expect(posts.map((post) => post.slug)).toEqual(["post-b", "post-featured", "post-c"]);
+  });
+});
+
+describe("required fields validation", () => {
+  const writeTmpPost = (frontmatter: string[], { withCover = true } = {}) => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "posts-validation-"));
+    const postDir = path.join(tmpDir, "post-x");
+    fs.mkdirSync(postDir);
+    fs.writeFileSync(
+      path.join(postDir, "index.mdx"),
+      ["---", "title: X", "createdAt: 2026-01-01", ...frontmatter, "---", "", "body"].join("\n"),
+      "utf-8",
+    );
+    if (withCover) fs.writeFileSync(path.join(postDir, "cover.webp"), "");
+    return tmpDir;
+  };
+
+  it("throws when a post has no cover image", () => {
+    const tmpDir = writeTmpPost(["category: experience"], { withCover: false });
+    try {
+      expect(() => getAllPosts(tmpDir)).toThrow(/cover/);
+    } finally {
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+    }
+  });
+
+  it("throws when a post has no category", () => {
+    const tmpDir = writeTmpPost([]);
+    try {
+      expect(() => getAllPosts(tmpDir)).toThrow(/post-x/);
+    } finally {
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+    }
+  });
+
+  it("throws when a post has an unregistered category", () => {
+    const tmpDir = writeTmpPost(["category: unknown"]);
+    try {
+      expect(() => getAllPosts(tmpDir)).toThrow(/unknown/);
+    } finally {
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+    }
+  });
+});
+
 describe("getPostBySlug", () => {
   it("returns the post with its body content", () => {
     const post = getPostBySlug("post-a", FIXTURES_DIR);
@@ -49,16 +105,11 @@ describe("getPostBySlug", () => {
       slug: "post-a",
       title: "A 게시글",
       createdAt: "2026-08-28",
+      category: "troubleshooting",
       featured: false,
       coverImage: "/images/posts/post-a/cover.webp",
       content: "\nfixture post A\n",
     });
-  });
-
-  it("returns undefined coverImage when the post folder has no cover.webp", () => {
-    const post = getPostBySlug("post-b", FIXTURES_DIR);
-
-    expect(post?.coverImage).toBeUndefined();
   });
 
   it("returns null when the slug does not exist", () => {
@@ -75,12 +126,14 @@ describe("getPostBySlug", () => {
       "---",
       "title: CRLF 게시글",
       "createdAt: 2024-01-01",
+      "category: experience",
       "---",
       "",
       "fixture post CRLF",
       "",
     ].join("\r\n");
     fs.writeFileSync(path.join(postDir, "index.mdx"), crlfContent, "utf-8");
+    fs.writeFileSync(path.join(postDir, "cover.webp"), "");
 
     try {
       const post = getPostBySlug("post-crlf", tmpDir);
@@ -89,7 +142,9 @@ describe("getPostBySlug", () => {
         slug: "post-crlf",
         title: "CRLF 게시글",
         createdAt: "2024-01-01",
+        category: "experience",
         featured: false,
+        coverImage: "/images/posts/post-crlf/cover.webp",
         content: "\nfixture post CRLF\n",
       });
     } finally {

@@ -1,0 +1,17 @@
+.masonry {
+  columns: 3;
+  column-gap: var(--space-4);
+  margin-block-start: var(--space-9);
+}
+
+@media (max-width: 1024px) {
+  .masonry {
+    columns: 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .masonry {
+    columns: 1;
+  }
+}
