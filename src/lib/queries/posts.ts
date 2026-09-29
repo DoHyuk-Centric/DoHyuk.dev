@@ -1,6 +1,7 @@
 import "server-only";
 import fs from "node:fs";
 import path from "node:path";
+import { CATEGORY_KEYS, isCategory, type Category } from "@/lib/categories";
 
 const POSTS_DIR = path.join(process.cwd(), "content/posts");
 
@@ -8,6 +9,7 @@ export type Post = {
   slug: string;
   title: string;
   createdAt: string;
+  category: Category;
   excerpt?: string;
   featured?: boolean;
   coverImage?: string;
@@ -46,10 +48,17 @@ function readPost(slug: string, dir: string): PostDetail {
   const postDir = path.join(dir, slug);
   const raw = fs.readFileSync(path.join(postDir, "index.mdx"), "utf-8");
   const { data, content } = parseFrontmatter(raw);
+  // category는 필수다. 빠졌거나 등록되지 않은 값이면 빌드를 멈춰 오타가 배포되지 않게 한다.
+  if (!isCategory(data.category)) {
+    throw new Error(
+      `[posts] "${slug}" has invalid category "${data.category ?? ""}". Expected one of: ${CATEGORY_KEYS.join(", ")}`,
+    );
+  }
   return {
     slug,
     title: data.title ?? slug,
     createdAt: data.createdAt ?? "",
+    category: data.category,
     excerpt: data.excerpt,
     featured: data.featured === "true",
     coverImage: findCoverImage(postDir, slug),
@@ -77,6 +86,10 @@ export function getPostsByYear(year: number, dir: string = POSTS_DIR): Post[] {
 
 export function getPostsSince(startYear: number, dir: string = POSTS_DIR): Post[] {
   return getAllPosts(dir).filter((post) => new Date(post.createdAt).getFullYear() >= startYear);
+}
+
+export function getPostsByCategory(category: Category, dir: string = POSTS_DIR): Post[] {
+  return getAllPosts(dir).filter((post) => post.category === category);
 }
 
 export function getPostBySlug(slug: string, dir: string = POSTS_DIR): PostDetail | null {
