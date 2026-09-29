@@ -122,6 +122,16 @@
   margin-top: 0;
 }
 
+/* 본문 이미지 */
+
+.content img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 0.8px solid var(--contour);
+  border-radius: var(--radius-md);
+}
+
 /* 인라인 */
 
 .content strong {
