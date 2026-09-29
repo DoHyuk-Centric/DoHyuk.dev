@@ -4,6 +4,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypePrettyCode from "rehype-pretty-code";
 import remarkGfm from "remark-gfm";
 import { getAllPosts, getPostBySlug } from "@/lib/queries/posts";
+import { mdxComponents } from "@/lib/mdx/components";
 import { rehypePrettyCodeOptions } from "@/lib/mdx/highlighter";
 import styles from "./page.module.css";
 
@@ -52,6 +53,7 @@ export default async function PostDetail({
       <div className={styles.content}>
         <MDXRemote
           source={post.content}
+          components={mdxComponents}
           options={{
             mdxOptions: {
               remarkPlugins: [remarkGfm],
