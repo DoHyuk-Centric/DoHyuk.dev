@@ -55,17 +55,28 @@ describe("getPostsByCategory", () => {
   });
 });
 
-describe("category validation", () => {
-  const writeTmpPost = (frontmatter: string[]) => {
-    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "posts-category-"));
-    fs.mkdirSync(path.join(tmpDir, "post-x"));
+describe("required fields validation", () => {
+  const writeTmpPost = (frontmatter: string[], { withCover = true } = {}) => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "posts-validation-"));
+    const postDir = path.join(tmpDir, "post-x");
+    fs.mkdirSync(postDir);
     fs.writeFileSync(
-      path.join(tmpDir, "post-x", "index.mdx"),
+      path.join(postDir, "index.mdx"),
       ["---", "title: X", "createdAt: 2026-01-01", ...frontmatter, "---", "", "body"].join("\n"),
       "utf-8",
     );
+    if (withCover) fs.writeFileSync(path.join(postDir, "cover.webp"), "");
     return tmpDir;
   };
+
+  it("throws when a post has no cover image", () => {
+    const tmpDir = writeTmpPost(["category: experience"], { withCover: false });
+    try {
+      expect(() => getAllPosts(tmpDir)).toThrow(/cover/);
+    } finally {
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+    }
+  });
 
   it("throws when a post has no category", () => {
     const tmpDir = writeTmpPost([]);
@@ -101,12 +112,6 @@ describe("getPostBySlug", () => {
     });
   });
 
-  it("returns undefined coverImage when the post folder has no cover.webp", () => {
-    const post = getPostBySlug("post-b", FIXTURES_DIR);
-
-    expect(post?.coverImage).toBeUndefined();
-  });
-
   it("returns null when the slug does not exist", () => {
     expect(getPostBySlug("does-not-exist", FIXTURES_DIR)).toBeNull();
   });
@@ -128,6 +133,7 @@ describe("getPostBySlug", () => {
       "",
     ].join("\r\n");
     fs.writeFileSync(path.join(postDir, "index.mdx"), crlfContent, "utf-8");
+    fs.writeFileSync(path.join(postDir, "cover.webp"), "");
 
     try {
       const post = getPostBySlug("post-crlf", tmpDir);
@@ -138,6 +144,7 @@ describe("getPostBySlug", () => {
         createdAt: "2024-01-01",
         category: "experience",
         featured: false,
+        coverImage: "/images/posts/post-crlf/cover.webp",
         content: "\nfixture post CRLF\n",
       });
     } finally {

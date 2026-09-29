@@ -12,7 +12,7 @@ export type Post = {
   category: Category;
   excerpt?: string;
   featured?: boolean;
-  coverImage?: string;
+  coverImage: string;
 };
 
 export type PostDetail = Post & { content: string };
@@ -39,8 +39,11 @@ function parseFrontmatter(raw: string): { data: Record<string, string>; content:
 // A post's cover image is convention-based, not a frontmatter field: dropping
 // content/posts/<slug>/cover.* is enough. scripts/sync-images.mjs optimizes it
 // to cover.webp and copies it into public/images/posts/<slug>/ before dev/build.
-function findCoverImage(postDir: string, slug: string): string | undefined {
-  if (!fs.existsSync(path.join(postDir, "cover.webp"))) return undefined;
+// 커버 이미지는 필수다. 없으면 빌드를 멈춘다.
+function findCoverImage(postDir: string, slug: string): string {
+  if (!fs.existsSync(path.join(postDir, "cover.webp"))) {
+    throw new Error(`[posts] "${slug}" has no cover image. Add content/posts/${slug}/cover.*`);
+  }
   return `/images/posts/${slug}/cover.webp`;
 }
 
