@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypePrettyCode from "rehype-pretty-code";
 import remarkGfm from "remark-gfm";
+import { withBasePath } from "@/lib/basePath";
 import { getAllPosts, getPostBySlug } from "@/lib/queries/posts";
 import { mdxComponents } from "@/lib/mdx/components";
 import { rehypePrettyCodeOptions } from "@/lib/mdx/highlighter";
@@ -41,7 +42,7 @@ export default async function PostDetail({
       {post.coverImage && (
         <div className={styles.cover}>
           <Image
-            src={post.coverImage}
+            src={withBasePath(post.coverImage)}
             alt=""
             fill
             priority
